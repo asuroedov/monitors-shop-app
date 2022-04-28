@@ -39,21 +39,26 @@ interface GetMonitorsByFiltersInterface {
 export function getMonitorsByFilters(
   monitors: MonitorInterface[],
   { frequencies, screenDiagonals, screenResolutions, brands }: GetMonitorsByFiltersInterface,
+  excluded?: keyof GetMonitorsByFiltersInterface,
 ) {
   let responseMonitors = [...monitors];
 
-  responseMonitors = brands.length
-    ? responseMonitors.filter((monitor) => brands.includes(monitor.brand))
-    : responseMonitors;
-  responseMonitors = frequencies.length
-    ? responseMonitors.filter((monitor) => frequencies.includes(monitor.frequency.toString()))
-    : responseMonitors;
-  responseMonitors = screenDiagonals.length
-    ? responseMonitors.filter((monitor) => screenDiagonals.includes(monitor.screenDiagonal.toString()))
-    : responseMonitors;
-  responseMonitors = screenResolutions.length
-    ? responseMonitors.filter((monitor) => screenResolutions.includes(monitor.screenResolution))
-    : responseMonitors;
+  responseMonitors =
+    brands.length && excluded !== "brands"
+      ? responseMonitors.filter((monitor) => brands.includes(monitor.brand))
+      : responseMonitors;
+  responseMonitors =
+    frequencies.length && excluded !== "frequencies"
+      ? responseMonitors.filter((monitor) => frequencies.includes(monitor.frequency.toString()))
+      : responseMonitors;
+  responseMonitors =
+    screenDiagonals.length && excluded !== "screenDiagonals"
+      ? responseMonitors.filter((monitor) => screenDiagonals.includes(monitor.screenDiagonal.toString()))
+      : responseMonitors;
+  responseMonitors =
+    screenResolutions.length && excluded !== "screenResolutions"
+      ? responseMonitors.filter((monitor) => screenResolutions.includes(monitor.screenResolution))
+      : responseMonitors;
 
   return responseMonitors;
 }
