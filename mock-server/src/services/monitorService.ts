@@ -1,10 +1,10 @@
 import { MonitorInterface } from "../types/monitor";
 
 interface GetMonitorsByQueryParamsProps {
-  brands: string[];
-  screenResolutions: string[];
-  screenDiagonals: string[];
-  frequencies: string[];
+  brand: string[];
+  screenResolution: string[];
+  screenDiagonal: string[];
+  frequency: string[];
   sortBy?: "price";
   sortVariant: "desc" | "asc" | string;
 }
@@ -12,10 +12,10 @@ interface GetMonitorsByQueryParamsProps {
 export function getMonitorsByQueryParams(
   monitors: MonitorInterface[],
   {
-    frequencies,
-    screenDiagonals,
-    screenResolutions,
-    brands,
+    frequency,
+    screenDiagonal,
+    screenResolution,
+    brand,
     sortBy = "price",
     sortVariant = "asc",
   }: GetMonitorsByQueryParamsProps,
@@ -26,39 +26,34 @@ export function getMonitorsByQueryParams(
     return sortVariant === "asc" ? monitor1.price - monitor2.price : monitor2.price - monitor1.price;
   });
 
-  return getMonitorsByFilters(responseMonitors, { screenResolutions, screenDiagonals, brands, frequencies });
+  return getMonitorsByFilters(responseMonitors, { screenResolution, screenDiagonal, brand, frequency });
 }
 
 interface GetMonitorsByFiltersInterface {
-  brands: string[];
-  screenResolutions: string[];
-  screenDiagonals: string[];
-  frequencies: string[];
+  brand: string[];
+  screenResolution: string[];
+  screenDiagonal: string[];
+  frequency: string[];
 }
 
 export function getMonitorsByFilters(
   monitors: MonitorInterface[],
-  { frequencies, screenDiagonals, screenResolutions, brands }: GetMonitorsByFiltersInterface,
+  filters: GetMonitorsByFiltersInterface,
   excluded?: keyof GetMonitorsByFiltersInterface,
 ) {
   let responseMonitors = [...monitors];
 
-  responseMonitors =
-    brands.length && excluded !== "brands"
-      ? responseMonitors.filter((monitor) => brands.includes(monitor.brand))
-      : responseMonitors;
-  responseMonitors =
-    frequencies.length && excluded !== "frequencies"
-      ? responseMonitors.filter((monitor) => frequencies.includes(monitor.frequency.toString()))
-      : responseMonitors;
-  responseMonitors =
-    screenDiagonals.length && excluded !== "screenDiagonals"
-      ? responseMonitors.filter((monitor) => screenDiagonals.includes(monitor.screenDiagonal.toString()))
-      : responseMonitors;
-  responseMonitors =
-    screenResolutions.length && excluded !== "screenResolutions"
-      ? responseMonitors.filter((monitor) => screenResolutions.includes(monitor.screenResolution))
-      : responseMonitors;
+  // @ts-ignore
+  Object.entries(filters).forEach(([filterKey, filterValue]: [keyof MonitorInterface, string[]]) => {
+    responseMonitors =
+      filterValue.length && excluded !== filterKey.toString()
+        ? responseMonitors.filter((monitor) => {
+            return filterValue
+              .map((filter) => filter.toLowerCase())
+              .includes(monitor[filterKey].toString().toLowerCase());
+          })
+        : responseMonitors;
+  });
 
   return responseMonitors;
 }

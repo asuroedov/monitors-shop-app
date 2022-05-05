@@ -7,9 +7,9 @@ export function parseFilterQueries(query: any) {
   const parsedFrequency: string[] = frequency ? JSON.parse(frequency) : [];
 
   return {
-    brands: parsedBrand,
-    screenResolutions: parsedScreenResolution,
-    screenDiagonals: parsedScreenDiagonal,
-    frequencies: parsedFrequency,
+    brand: parsedBrand,
+    screenResolution: parsedScreenResolution,
+    screenDiagonal: parsedScreenDiagonal,
+    frequency: parsedFrequency,
   };
 }

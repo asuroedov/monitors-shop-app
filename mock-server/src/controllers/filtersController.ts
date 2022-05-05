@@ -9,22 +9,22 @@ export async function getFilters(request: Request, response: Response, next: Nex
     const parsedQueries = parseFilterQueries(request.query);
 
     const availableBrands = getCountOfAvailableFilters(
-      getMonitorsByFilters(mockMonitors, parsedQueries, "brands"),
+      getMonitorsByFilters(mockMonitors, parsedQueries, "brand"),
       "brand",
     );
 
     const availableScreenResolutions = getCountOfAvailableFilters(
-      getMonitorsByFilters(mockMonitors, parsedQueries, "screenResolutions"),
+      getMonitorsByFilters(mockMonitors, parsedQueries, "screenResolution"),
       "screenResolution",
     );
 
     const availableFrequencies = getCountOfAvailableFilters(
-      getMonitorsByFilters(mockMonitors, parsedQueries, "frequencies"),
+      getMonitorsByFilters(mockMonitors, parsedQueries, "frequency"),
       "frequency",
     );
 
     const availableScreenDiagonals = getCountOfAvailableFilters(
-      getMonitorsByFilters(mockMonitors, parsedQueries, "screenDiagonals"),
+      getMonitorsByFilters(mockMonitors, parsedQueries, "screenDiagonal"),
       "screenDiagonal",
     );
 
@@ -38,11 +38,3 @@ export async function getFilters(request: Request, response: Response, next: Nex
     next(e);
   }
 }
-
-/*
- для brands кол-во массива мониторов получениых без учета brands
- для resolutions кол-во массива мониторов полученных без учета resolutions
- .....
- getMonitorsCount
- getCountOfAvailableFilters(monitors, filter) - возвращает кол-во доступных значений для данного фильтра
- */
