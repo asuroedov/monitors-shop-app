@@ -1,0 +1,41 @@
+.monitorCard {
+  display: flex;
+  padding: 20px;
+  transition-duration: 0.2s;
+  border-bottom: 1px solid lightgray;
+
+  &:hover {
+    box-shadow: 1px 3px 10px lightgray;
+  }
+}
+
+.monitorInfo {
+  margin-left: 40px;
+  color: #151528;
+  font-size: 14px;
+  line-height: 1.44;
+
+  & > div {
+    margin-bottom: 3px;
+  }
+
+  & span:first-child {
+    color: #5d5d64;
+    margin-right: 10px;
+  }
+}
+
+.img {
+  width: 180px;
+  height: 180px;
+}
+
+.title {
+  font-size: 18px;
+  line-height: 25px;
+  transition-duration: 0.1s;
+
+  &:hover {
+    color: #fe7200;
+  }
+}

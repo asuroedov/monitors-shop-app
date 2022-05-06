@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { MonitorInterface } from "../../types/monitor";
+import { MonitorInterface, MonitorsResponseInterface } from "../../types/monitor";
+import { fetchMonitorList } from "./asyncActions";
 
 export interface MonitorState {
   monitors: MonitorInterface[];
@@ -21,6 +22,18 @@ export const monitorSlice = createSlice({
     setIsLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchMonitorList.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchMonitorList.fulfilled, (state, action: PayloadAction<MonitorsResponseInterface>) => {
+      state.monitors = action.payload.monitors;
+      state.isLoading = false;
+    });
+    builder.addCase(fetchMonitorList.rejected, (state) => {
+      state.isLoading = false;
+    });
   },
 });
 

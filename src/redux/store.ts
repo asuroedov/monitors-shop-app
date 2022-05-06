@@ -4,7 +4,7 @@ import { filtersSlice } from "./filters/filterSlice";
 
 export const store = configureStore({
   reducer: {
-    monitors: monitorSlice.reducer,
+    monitor: monitorSlice.reducer,
     filters: filtersSlice.reducer,
   },
 });

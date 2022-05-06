@@ -9,3 +9,8 @@ export interface MonitorInterface {
   matrixType: string;
   imgSrc: string;
 }
+
+export interface MonitorsResponseInterface {
+  totalCount: number;
+  monitors: MonitorInterface[];
+}
