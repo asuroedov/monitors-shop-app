@@ -11,7 +11,9 @@ const FilterGroup: FC<FilterGroupProps> = ({ title, data, name }) => {
     <div className={styles.filterGroup}>
       <span className={styles.filterGroup__name}>{name}</span>
       {Object.entries(data).map(([filterValue, filterCounts], index) => (
-        <FilterItem key={filterValue + index}>{filterValue}</FilterItem>
+        <FilterItem key={filterValue + index} title={title} counts={filterCounts}>
+          {filterValue}
+        </FilterItem>
       ))}
     </div>
   );

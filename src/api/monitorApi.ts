@@ -9,8 +9,8 @@ class MonitorApi {
     this.api = axios.create({ baseURL: "http://localhost:5000" });
   }
 
-  async getList() {
-    return await errorHandler<MonitorsResponseInterface>(() => this.api.get("/monitors"));
+  async getList(checkedFilters?: string) {
+    return await errorHandler<MonitorsResponseInterface>(() => this.api.get(`/monitors?${checkedFilters}`));
   }
 }
 
