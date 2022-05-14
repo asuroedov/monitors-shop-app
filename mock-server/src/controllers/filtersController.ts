@@ -3,19 +3,21 @@ import { getMonitorsByFilters } from "../services/monitorService";
 import { parseFilterQueries } from "../utils/parseFilterQueries";
 import { mockMonitors } from "../data/mock-monitors";
 import { getCountOfAvailableFilters } from "../services/filtersService";
+import { sortBrands, sortScreenResolutions } from "../utils/sortFilters";
 
 export async function getFilters(request: Request, response: Response, next: NextFunction) {
   try {
     const parsedQueries = parseFilterQueries(request.query);
 
-    const availableBrands = getCountOfAvailableFilters(
-      getMonitorsByFilters(mockMonitors, parsedQueries, "brand"),
-      "brand",
+    const availableBrands = sortBrands(
+      getCountOfAvailableFilters(getMonitorsByFilters(mockMonitors, parsedQueries, "brand"), "brand"),
     );
 
-    const availableScreenResolutions = getCountOfAvailableFilters(
-      getMonitorsByFilters(mockMonitors, parsedQueries, "screenResolution"),
-      "screenResolution",
+    const availableScreenResolutions = sortScreenResolutions(
+      getCountOfAvailableFilters(
+        getMonitorsByFilters(mockMonitors, parsedQueries, "screenResolution"),
+        "screenResolution",
+      ),
     );
 
     const availableFrequencies = getCountOfAvailableFilters(

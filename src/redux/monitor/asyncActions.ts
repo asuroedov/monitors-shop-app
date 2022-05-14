@@ -3,7 +3,7 @@ import monitorApi from "../../api/monitorApi";
 import { TypeRootState } from "../store";
 import { mapCheckedFiltersToQuery } from "../../utils/mapCheckedFiltersToQuery";
 
-export const fetchMonitorList = createAsyncThunk("/monitors/fetch", async (payload: any, thunkApi) => {
+export const fetchMonitorList = createAsyncThunk("/monitors/fetch", async (payload, thunkApi) => {
   const state = thunkApi.getState() as TypeRootState;
   const checkedFilters = state.filters.checkedFilters;
 

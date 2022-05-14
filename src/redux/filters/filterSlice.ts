@@ -1,14 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FilterInterface } from "../../types/filters";
-import { fetchFilters } from "./asyncActions";
+import { fetchAllFilters, fetchFilters } from "./asyncActions";
 
 export interface FiltersState {
   filters: FilterInterface[];
+  allFilters: FilterInterface[];
   checkedFilters: Record<string, string[]>;
 }
 
 const initialState: FiltersState = {
   filters: [],
+  allFilters: [],
   checkedFilters: {},
 };
 
@@ -30,6 +32,9 @@ export const filtersSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchAllFilters.fulfilled, (state, action) => {
+      state.allFilters = action.payload;
+    });
     builder.addCase(fetchFilters.fulfilled, (state, action) => {
       state.filters = action.payload;
     });

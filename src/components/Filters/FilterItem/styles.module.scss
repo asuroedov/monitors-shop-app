@@ -5,6 +5,11 @@
   margin-bottom: 6px;
 }
 
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .filterItem__name {
   margin-left: 6px;
   color: rgb(21, 21, 40);

@@ -14,7 +14,7 @@ const MonitorList = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchMonitorList({}));
+    dispatch(fetchMonitorList());
   }, [dispatch]);
 
   return (

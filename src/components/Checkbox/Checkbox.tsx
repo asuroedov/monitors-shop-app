@@ -20,6 +20,7 @@ const Checkbox: FC<CheckboxProps> = ({ checked, setChecked }) => {
         type="checkbox"
         checked={checked}
         onClick={(event) => event.stopPropagation()}
+        onChange={() => {}}
       />
     </label>
   );

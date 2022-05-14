@@ -1,6 +1,8 @@
 import React, { memo } from "react";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
+
 import FilterGroup from "./FilterGroup/FilterGroup";
+
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 const Filters = () => {
   const filters = useTypedSelector((state) => state.filters.filters);

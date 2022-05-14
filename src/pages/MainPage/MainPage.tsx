@@ -1,16 +1,19 @@
 import React, { memo, useEffect } from "react";
 
 import MonitorList from "../../components/MonitorList/MonitorList";
+import Filters from "../../components/Filters/Filters";
+
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+
+import { fetchAllFilters, fetchFilters } from "../../redux/filters/asyncActions";
 
 import styles from "./styles.module.scss";
-import Filters from "../../components/Filters/Filters";
-import { fetchFilters } from "../../redux/filters/asyncActions";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
 
 const MainPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(fetchAllFilters());
     dispatch(fetchFilters());
   }, [dispatch]);
 

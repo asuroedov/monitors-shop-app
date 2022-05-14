@@ -9,8 +9,8 @@ class FiltersApi {
     this.api = axios.create({ baseURL: config.BASE_URL });
   }
 
-  async getFilters() {
-    return (await this.api.get<FilterInterface[]>("/filters")).data;
+  async getFilters(query?: string) {
+    return (await this.api.get<FilterInterface[]>(`/filters?${query}`)).data;
   }
 }
 

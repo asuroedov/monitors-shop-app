@@ -1,10 +1,15 @@
 import React, { FC, memo, useCallback, useState } from "react";
+import cn from "classnames";
+
 import Checkbox from "../../Checkbox/Checkbox";
 
-import styles from "./styles.module.scss";
 import { useActions } from "../../../hooks/useActions";
-import { fetchMonitorList } from "../../../redux/monitor/asyncActions";
 import { useAppDispatch } from "../../../hooks/useAppDispatch";
+
+import { fetchMonitorList } from "../../../redux/monitor/asyncActions";
+import { fetchFilters } from "../../../redux/filters/asyncActions";
+
+import styles from "./styles.module.scss";
 
 interface FilterItemProps {
   children: string;
@@ -24,13 +29,15 @@ const FilterItem: FC<FilterItemProps> = ({ children, title, counts }) => {
   }, [checked, title, children, addCheckedFilter, removeCheckedFilter]);
 
   const toggleCheck = useCallback(() => {
+    if (!counts && !checked) return;
     setChecked((checked) => !checked);
     handleToggleFilterCheckInStore();
-    dispatch(fetchMonitorList({}));
-  }, [handleToggleFilterCheckInStore, dispatch]);
+    dispatch(fetchMonitorList());
+    dispatch(fetchFilters());
+  }, [handleToggleFilterCheckInStore, dispatch, counts, checked]);
 
   return (
-    <div className={styles.filterItem} onClick={toggleCheck}>
+    <div className={cn(styles.filterItem, { [styles.disabled]: !counts && !checked })} onClick={toggleCheck}>
       <Checkbox checked={checked} />
       <div className={styles.filterItem__info}>
         <span className={styles.filterItem__name}>{children}</span>
