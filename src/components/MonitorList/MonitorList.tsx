@@ -1,4 +1,5 @@
-import React, { memo, useEffect } from "react";
+import React, { FC, memo, useEffect } from "react";
+import cn from "classnames";
 
 import MonitorCard from "./MonitorCard/MonitorCard";
 
@@ -9,7 +10,11 @@ import { fetchMonitorList } from "../../redux/monitor/asyncActions";
 
 import styles from "./styles.module.scss";
 
-const MonitorList = () => {
+interface MonitorListProps {
+  className?: string;
+}
+
+const MonitorList: FC<MonitorListProps> = ({ className }) => {
   const monitors = useTypedSelector((state) => state.monitor.monitors);
   const dispatch = useAppDispatch();
 
@@ -18,7 +23,7 @@ const MonitorList = () => {
   }, [dispatch]);
 
   return (
-    <ul className={styles.monitorList}>
+    <ul className={cn(styles.monitorList, className)}>
       {monitors.map((monitor) => (
         <MonitorCard key={monitor.id} {...monitor} />
       ))}

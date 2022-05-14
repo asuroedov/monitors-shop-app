@@ -22,7 +22,7 @@ const FilterGroup: FC<FilterGroupProps> = ({ title, data, name }) => {
 
   return (
     <div className={styles.filterGroup}>
-      <span className={styles.filterGroup__name}>{name}</span>
+      <div className={styles.filterGroup__name}>{name}</div>
       {mergedFilters.map(([filterValue, filterCounts], index) => (
         <FilterItem key={filterValue + index} title={title} counts={filterCounts}>
           {filterValue}

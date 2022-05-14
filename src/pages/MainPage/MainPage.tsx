@@ -19,7 +19,7 @@ const MainPage = () => {
 
   return (
     <div className={styles.mainPage}>
-      <MonitorList />
+      <MonitorList className={styles.monitorList} />
       <Filters />
     </div>
   );

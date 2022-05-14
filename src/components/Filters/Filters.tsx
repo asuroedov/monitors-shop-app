@@ -4,11 +4,13 @@ import FilterGroup from "./FilterGroup/FilterGroup";
 
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
+import styles from "./styles.module.scss";
+
 const Filters = () => {
   const filters = useTypedSelector((state) => state.filters.filters);
 
   return (
-    <ul>
+    <ul className={styles.wrapper}>
       {filters.map((filter) => (
         <FilterGroup key={filter.title} {...filter} />
       ))}
