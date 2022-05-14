@@ -15,7 +15,7 @@ const MonitorList = () => {
 
   useEffect(() => {
     dispatch(fetchMonitorList({}));
-  });
+  }, [dispatch]);
 
   return (
     <ul className={styles.monitorList}>

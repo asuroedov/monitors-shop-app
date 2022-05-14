@@ -1,0 +1,26 @@
+.label {
+  cursor: pointer;
+  position: relative;
+  border: 1px solid gray;
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+
+  .checkbox {
+    display: none;
+  }
+
+}
+
+.checked {
+  background: rgb(59, 59, 59);
+}
+
+.checked:before {
+  content: '✓';
+  font-size: 14px;
+  color: white;
+  position: absolute;
+  top: -4px;
+  left: 1px;
+}

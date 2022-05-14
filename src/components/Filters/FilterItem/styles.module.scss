@@ -1,0 +1,11 @@
+.filterItem {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 6px;
+}
+
+.filterItem__name {
+  margin-left: 6px;
+  color: rgb(21, 21, 40);
+}

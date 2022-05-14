@@ -28,12 +28,12 @@ export async function getFilters(request: Request, response: Response, next: Nex
       "screenDiagonal",
     );
 
-    response.json({
-      brands: availableBrands,
-      screenResolutions: availableScreenResolutions,
-      screenDiagonals: availableScreenDiagonals,
-      frequencies: availableFrequencies,
-    });
+    response.json([
+      { title: "brands", name: "Брэнд", data: availableBrands },
+      { title: "screenResolutions", name: "Разрешение экрана", data: availableScreenResolutions },
+      { title: "screenDiagonals", name: "Размер экрана", data: availableScreenDiagonals },
+      { title: "frequencies", name: "Частота обновления", data: availableFrequencies },
+    ]);
   } catch (e) {
     next(e);
   }

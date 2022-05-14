@@ -1,35 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { FilterInterface } from "../../types/filters";
+import { fetchFilters } from "./asyncActions";
 
 export interface FiltersState {
-  brand: string[];
-  screenResolution: string[];
-  frequency: string[];
-  screenDiagonal: string[];
+  filters: FilterInterface[];
 }
 
 const initialState: FiltersState = {
-  brand: [],
-  frequency: [],
-  screenDiagonal: [],
-  screenResolution: [],
+  filters: [],
 };
 
 export const filtersSlice = createSlice({
   name: "filters",
   initialState,
-  reducers: {
-    setBrand: (state, action: PayloadAction<string[]>) => {
-      state.brand = action.payload;
-    },
-    setFrequency: (state, action: PayloadAction<string[]>) => {
-      state.frequency = action.payload;
-    },
-    setScreenDiagonal: (state, action: PayloadAction<string[]>) => {
-      state.screenDiagonal = action.payload;
-    },
-    setScreenResolution: (state, action: PayloadAction<string[]>) => {
-      state.screenResolution = action.payload;
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchFilters.fulfilled, (state, action) => {
+      state.filters = action.payload;
+    });
   },
 });
 
