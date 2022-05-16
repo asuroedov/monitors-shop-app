@@ -1,4 +1,4 @@
-import React, { FC, memo, useCallback, useState } from "react";
+import React, { FC, memo, useCallback, useMemo, useState } from "react";
 import cn from "classnames";
 
 import Checkbox from "../../Checkbox/Checkbox";
@@ -28,16 +28,20 @@ const FilterItem: FC<FilterItemProps> = ({ children, title, counts }) => {
     if (checked) removeCheckedFilter({ title, value: children });
   }, [checked, title, children, addCheckedFilter, removeCheckedFilter]);
 
+  const disabled = useMemo(() => !counts && !checked, [counts, checked]);
+
   const toggleCheck = useCallback(() => {
-    if (!counts && !checked) return;
+    if (disabled) return;
+
     setChecked((checked) => !checked);
     handleToggleFilterCheckInStore();
+
     dispatch(fetchMonitorList());
     dispatch(fetchFilters());
-  }, [handleToggleFilterCheckInStore, dispatch, counts, checked]);
+  }, [handleToggleFilterCheckInStore, dispatch, disabled]);
 
   return (
-    <div className={cn(styles.filterItem, { [styles.disabled]: !counts && !checked })} onClick={toggleCheck}>
+    <div className={cn(styles.filterItem, { [styles.disabled]: disabled })} onClick={toggleCheck}>
       <Checkbox checked={checked} />
       <div className={styles.filterItem__info}>
         <span className={styles.filterItem__name}>{children}</span>
